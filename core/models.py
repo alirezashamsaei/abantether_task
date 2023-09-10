@@ -74,7 +74,7 @@ class Exchange(models.Model):
     def buy_from_exchange(self, amount: Decimal, symbol: str) -> bool:
         """Adds the requested amount of currency to the treasury."""
 
-        # Throws an error if currency does notz
+        # Throws an error if currency does not exist
         currency = Currency.objects.get(ticker_symbol=symbol)
 
         if Decimal(currency.dollar_value * amount) < Decimal(
@@ -88,7 +88,7 @@ class Exchange(models.Model):
                 currency=currency
             )
             if created:
-                treasury_balance.amount = amount
+                treasury_balance.update_amount(amount)
             else:
-                treasury_balance.amount += amount
+                treasury_balance.increase_amount(amount)
             treasury_balance.save()

@@ -7,6 +7,7 @@ This is intended to be a very brief introduction to the code challenge for Aban 
 * The system fulfils client orders (although no model is implemented for orders) by deducting the USD value and adding the corresponding amount in the target currency to their balance.
 * There is a treasury containing the balance for each currency. this balance can become negative. when this balance becomes smaller (more negative) than a certain threshold (configurable via settings), then a (mock) request is sent to a (imaginary) Exchange, simulating a purchase from an external Exchange, increasing the amount of stored currency, "settling" accumulated "debt" for that currency.
 * There was no mention of any type of authentication method/system  being required. There has been no efforts done in improving/ implementing user authentication & authorization. everything is how it is out of the box with django & DRF.  (a good Idea would be to implement oauth / token authentication)
+* buy_from_exchange() method currently only adds funds to treasury. it would be more realistic to withraw corresponding amount of USD.
 * A video preview of the service is available [Here](https://drive.google.com/file/d/1-Csw4-X3eqp6fcZgpeU_5rh_v0bQUgKL/view?usp=sharing).
 
 ## Browsable API
