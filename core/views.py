@@ -20,7 +20,7 @@ class UserViewSet(viewsets.ModelViewSet):
 
     queryset = User.objects.all().order_by("-date_joined")
     serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
 
 class CurrencyViewSet(viewsets.ModelViewSet):
@@ -30,11 +30,12 @@ class CurrencyViewSet(viewsets.ModelViewSet):
 
     queryset = Currency.objects.all()
     serializer_class = CurrencySerializer
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAdminUser]
 
 
 class Buy(viewsets.ViewSet):
     serializer_class = CurrencyExchangeSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def list(self, request):
         data = {"message": "Buy a currency using USD."}
