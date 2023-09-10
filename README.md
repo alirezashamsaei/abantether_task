@@ -25,7 +25,7 @@ This project is implemented using [Django Rest Framework](https://www.django-res
 - **Root**: provides a list of routes implemented.
 - **users**: allows admin users to view, edit, add and remove currencies 
 - **currencies**: allows admin users to view, edit, add and remove currencies 
-- - **buy**: allows authenticated users to buy currencies with USD
+- **buy**: allows authenticated users to buy currencies with USD
 
 ## Tests
 There are some tests. run `python manage.py test`
