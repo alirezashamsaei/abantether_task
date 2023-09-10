@@ -13,3 +13,7 @@ class CurrencySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Currency
         fields = ["url", "display_name", "ticker_symbol", "dollar_value"]
+
+class CurrencyExchangeSerializer(serializers.Serializer):
+    symbol = serializers.CharField(max_length=8)
+    amount = serializers.DecimalField(decimal_places=4, max_digits=12)

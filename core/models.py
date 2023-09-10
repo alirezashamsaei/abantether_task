@@ -31,8 +31,21 @@ class Balance(models.Model):
     class Meta:
         abstract = True
 
+    @property
     def in_dollars(self):
         return self.currency.dollar_value * self.amount
+
+    def increase_amount(self, amount):
+        self.amount += amount
+        self.save()
+
+    def decrease_amount(self, amount):
+        self.amount -= amount
+        self.save()
+
+    def update_amount(self, amount):
+        self.amount = amount
+        self.save()
 
 
 class UserBalance(Balance):
@@ -59,9 +72,14 @@ class Exchange(models.Model):
         return self.title
 
     def buy_from_exchange(self, amount: Decimal, symbol: str) -> bool:
+        """Adds the requested amount of currency to the treasury."""
+
+        # Throws an error if currency does notz
         currency = Currency.objects.get(ticker_symbol=symbol)
 
-        if currency.dollar_value * amount < settings.MINIMUM_ORDER_USD_VALUE:
+        if Decimal(currency.dollar_value * amount) < Decimal(
+            settings.MINIMUM_ORDER_USD_VALUE
+        ):
             raise ValueError(
                 f"Dollar amount should be at least {settings.MINIMUM_ORDER_USD_VALUE}"
             )
